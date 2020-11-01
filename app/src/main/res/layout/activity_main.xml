@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/background_gray"
+        >
+        <TextView
+            android:id="@+id/date_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:textAllCaps="true"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/Hello"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Roboto"
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="13dp"
+            android:textColor="@color/black"
+            android:text="Hello Jane" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textColor="@color/background_gray"
+            android:textSize="16sp"
+            android:backgroundTint="@color/white"
+            android:text="@string/placeholder"></Button>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
