@@ -3,6 +3,8 @@ package com.example.gorillabookc_b.ui;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.gorillabookc_b.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class FetchAPI extends AsyncTask<Integer, Integer, String> {
+
+    private JSONAdapter adapter = null;
+
     @Override
     protected String doInBackground(Integer... params) {
         for (int count = 0; count <= params[0]; count++) {
@@ -27,9 +32,7 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
             }
         }
         try {
-            JSONArray response = getJSONObjectFromURL("https://gl-endpoint.herokuapp.com/feed");
-
-            Log.d("", "doInBackground: " + response.toString());
+            return getJSONObjectFromURL("https://gl-endpoint.herokuapp.com/feed").toString();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,7 +44,13 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        Log.d("TAG", "onPostExecute: " + result);
+        try {
+            adapter.setJsonArray(new JSONArray(result));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -77,7 +86,6 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
 
         jsonString = sb.toString();
 
-        System.out.println("JSON: " + jsonString);
         urlConnection.disconnect();
 
         return new JSONArray(jsonString);
