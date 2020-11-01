@@ -1,12 +1,15 @@
 package com.example.gorillabookc_b.ui;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +27,9 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
             }
         }
         try {
-            JSONObject response = getJSONObjectFromURL("http://gl-endpoint.herokuapp.com/feed");
+            JSONArray response = getJSONObjectFromURL("https://gl-endpoint.herokuapp.com/feed");
+
+            Log.d("", "doInBackground: " + response.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,23 +52,17 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
     protected void onProgressUpdate(Integer... values) {
     }
 
-    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+    public static JSONArray getJSONObjectFromURL(String urlString) throws IOException, JSONException {
 
         HttpURLConnection urlConnection = null;
-
+        String result="";
         URL url = new URL(urlString);
 
         urlConnection = (HttpURLConnection) url.openConnection();
+        InputStream inputStream=urlConnection.getInputStream();
+        InputStreamReader reader=new InputStreamReader(inputStream);
 
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */);
-        urlConnection.setConnectTimeout(15000 /* milliseconds */);
-
-        urlConnection.setDoOutput(true);
-
-        urlConnection.connect();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        BufferedReader br = new BufferedReader(reader);
 
         char[] buffer = new char[1024];
 
@@ -81,7 +80,18 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
         System.out.println("JSON: " + jsonString);
         urlConnection.disconnect();
 
-        return new JSONObject(jsonString);
+        return new JSONArray(jsonString);
+    }
+
+    public static String getData(InputStreamReader reader) throws IOException{
+        String result="";
+        int data=reader.read();
+        while (data!=-1){
+            char now=(char) data;
+            result+=data;
+            data=reader.read();
+        }
+        return result;
     }
 
 }
