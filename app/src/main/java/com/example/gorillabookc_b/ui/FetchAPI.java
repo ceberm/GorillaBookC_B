@@ -45,12 +45,8 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.d("TAG", "onPostExecute: " + result);
-        try {
-            adapter.setJsonArray(new JSONArray(result));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        adapter.notifyDataSetChanged();
+
+        //adapter.notifyDataSetChanged();
     }
 
     @Override
