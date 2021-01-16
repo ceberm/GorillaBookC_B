@@ -20,32 +20,12 @@ import org.json.JSONObject;
 public class JSONAdapter extends BaseAdapter implements ListAdapter {
 
     private final Activity activity;
-
-    public void setJsonArray(JSONArray jsonArray) {
-        this.jsonArray = jsonArray;
-    }
-
     private JSONArray jsonArray = null;
-
-    public JSONAdapter() {
-        this.activity = new MainActivity();
-        //Send the Thread to retrieve the list of objects
-        new FetchAPI().execute(1);
-    }
-
-    public JSONAdapter(Activity activity) {
-        assert activity != null;
-        this.activity = activity;
-        //Send the Thread to retrieve the list of objects
-        new FetchAPI().execute(1);
-    }
 
     public JSONAdapter(Activity activity, JSONArray jsonArray) {
         assert activity != null;
         this.activity = activity;
-        jsonArray = jsonArray;
-        //Send the Thread to retrieve the list of objects
-        new FetchAPI().execute(1);
+        this.jsonArray = jsonArray;
     }
 
     @Override
@@ -82,7 +62,8 @@ public class JSONAdapter extends BaseAdapter implements ListAdapter {
         if(null!=json_data ){
             String jj= null;
             try {
-                jj = json_data.getString("f_name");
+                jj = json_data.getString("first_name");
+                jj += " " + json_data.getString("last_name");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

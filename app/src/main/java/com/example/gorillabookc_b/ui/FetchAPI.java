@@ -18,8 +18,6 @@ import java.net.URL;
 
 public class FetchAPI extends AsyncTask<Integer, Integer, String> {
 
-    private JSONAdapter adapter = null;
-
     @Override
     protected String doInBackground(Integer... params) {
         for (int count = 0; count <= params[0]; count++) {
@@ -45,8 +43,6 @@ public class FetchAPI extends AsyncTask<Integer, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.d("TAG", "onPostExecute: " + result);
-
-        //adapter.notifyDataSetChanged();
     }
 
     @Override
